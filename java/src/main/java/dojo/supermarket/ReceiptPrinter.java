@@ -20,12 +20,10 @@ public class ReceiptPrinter {
     public String printReceipt(Receipt receipt) {
         StringBuilder result = new StringBuilder();
         for (ReceiptItem item : receipt.getItems()) {
-            String receiptItem = presentReceiptItem(item);
-            result.append(receiptItem);
+            result.append(presentReceiptItem(item));
         }
         for (Discount discount : receipt.getDiscounts()) {
-            String discountPresentation = presentDiscount(discount);
-            result.append(discountPresentation);
+            result.append(presentDiscount(discount));
         }
 
         result.append("\n");
