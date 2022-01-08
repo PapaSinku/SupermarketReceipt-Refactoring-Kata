@@ -1,9 +1,9 @@
 package dojo.supermarket.model;
 
 public class Offer {
-    SpecialOfferType offerType;
+    private SpecialOfferType offerType;
     private final Product product;
-    double argument;
+    private double argument;
 
     public Offer(SpecialOfferType offerType, Product product, double argument) {
         this.offerType = offerType;
@@ -11,8 +11,16 @@ public class Offer {
         this.product = product;
     }
 
-    Product getProduct() {
-        return this.product;
+    public SpecialOfferType getOfferType() {
+        return offerType;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public double getArgument() {
+        return argument;
     }
 
     public int getNumberOfBoughtItemsRequired() {
