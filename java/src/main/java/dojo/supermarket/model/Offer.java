@@ -15,4 +15,18 @@ public class Offer {
         return this.product;
     }
 
+    public int getNumberOfBoughtItemsRequired() {
+        int numberOfBoughtItemsRequired = 1;
+        if (this.offerType == SpecialOfferType.ThreeForTwo) {
+            numberOfBoughtItemsRequired = 3;
+
+        } else if (this.offerType == SpecialOfferType.TwoForAmount) {
+            numberOfBoughtItemsRequired = 2;
+
+        }
+        if (this.offerType == SpecialOfferType.FiveForAmount) {
+            numberOfBoughtItemsRequired = 5;
+        }
+        return numberOfBoughtItemsRequired;
+    }
 }
