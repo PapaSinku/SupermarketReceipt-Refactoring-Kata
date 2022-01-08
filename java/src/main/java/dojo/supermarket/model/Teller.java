@@ -17,17 +17,17 @@ public class Teller {
         this.offers.put(product, new Offer(offerType, product, argument));
     }
 
-    public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
+    public Receipt checksOutArticlesFrom(ShoppingCart cart) {
         Receipt receipt = new Receipt();
-        List<ProductQuantity> productQuantities = theCart.getItems();
-        for (ProductQuantity pq: productQuantities) {
-            Product p = pq.getProduct();
-            double quantity = pq.getQuantity();
-            double unitPrice = this.catalog.getUnitPrice(p);
+        List<ProductQuantity> productQuantities = cart.getItems();
+        for (ProductQuantity productQuantity: productQuantities) {
+            Product product = productQuantity.getProduct();
+            double quantity = productQuantity.getQuantity();
+            double unitPrice = this.catalog.getUnitPrice(product);
             double price = quantity * unitPrice;
-            receipt.addProduct(p, quantity, unitPrice, price);
+            receipt.addProduct(product, quantity, unitPrice, price);
         }
-        theCart.handleOffers(receipt, this.offers, this.catalog);
+        cart.handleOffers(receipt, this.offers, this.catalog);
 
         return receipt;
     }

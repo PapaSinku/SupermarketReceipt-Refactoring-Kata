@@ -34,14 +34,14 @@ public class ShoppingCart {
     }
 
     void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
-        for (Product p: productQuantities().keySet()) {
-            double quantity = productQuantities.get(p);
-            if (!offers.containsKey(p)) {
+        for (Product product: getProductQuantities().keySet()) {
+            double quantity = productQuantities.get(product);
+            if (!offers.containsKey(product)) {
                 continue;
             }
-            Offer offer = offers.get(p);
-            double unitPrice = catalog.getUnitPrice(p);
-            Discount discount = offer.getDiscount(p, quantity, unitPrice);
+            Offer offer = offers.get(product);
+            double unitPrice = catalog.getUnitPrice(product);
+            Discount discount = offer.getDiscount(product, quantity, unitPrice);
             if (discount != null)
                 receipt.addDiscount(discount);
 

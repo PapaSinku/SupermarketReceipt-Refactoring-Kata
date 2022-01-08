@@ -8,8 +8,8 @@ public class ReceiptItem {
     private double totalPrice;
     private final double quantity;
 
-    public ReceiptItem(Product p, double quantity, double price, double totalPrice) {
-        this.product = p;
+    public ReceiptItem(Product product, double quantity, double price, double totalPrice) {
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
         this.totalPrice = totalPrice;
