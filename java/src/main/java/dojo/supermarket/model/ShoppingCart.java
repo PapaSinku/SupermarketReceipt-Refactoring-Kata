@@ -8,7 +8,7 @@ import java.util.Map;
 public class ShoppingCart {
 
     private final List<ProductQuantity> items = new ArrayList<>();
-    Map<Product, Double> productQuantities = new HashMap<>();
+    private final Map<Product, Double> productQuantities = new HashMap<>();
 
 
     List<ProductQuantity> getItems() {
@@ -19,7 +19,7 @@ public class ShoppingCart {
         this.addItemQuantity(product, 1.0);
     }
 
-    Map<Product, Double> productQuantities() {
+    public Map<Product, Double> getProductQuantities() {
         return productQuantities;
     }
 
