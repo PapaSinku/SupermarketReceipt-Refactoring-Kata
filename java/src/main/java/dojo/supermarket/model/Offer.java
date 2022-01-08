@@ -35,27 +35,49 @@ public class Offer {
         int numberOfBoughtItemsRequired = this.getNumberOfBoughtItemsRequired();
         int numberOfApplies = quantityAsInt / numberOfBoughtItemsRequired;
         Discount discount = null;
-        if (offerType == SpecialOfferType.TenPercentDiscount) {
-            discount = new Discount(product, argument + "% off", -quantity * unitPrice * argument / 100.0);
-        }
-        if (numberOfApplies > 0) {
-            if (offerType == SpecialOfferType.ThreeForTwo) {
-                double discountAmount = quantity * unitPrice - ((numberOfApplies * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
-                discount = new Discount(product, "3 for 2", -discountAmount);
-            }
-            if (offerType == SpecialOfferType.TwoForAmount) {
-                double pricePerUnit = argument * numberOfApplies;
-                double theTotal = (quantityAsInt % 2) * unitPrice;
-                double total = pricePerUnit + theTotal;
-                double discountN = unitPrice * quantity - total;
-                discount = new Discount(product, "2 for " + argument, -discountN);
-            }
-            if (offerType == SpecialOfferType.FiveForAmount) {
-                double discountTotal = unitPrice * quantity - (argument * numberOfApplies + quantityAsInt % 5 * unitPrice);
-                discount = new Discount(product, numberOfBoughtItemsRequired + " for " + argument, -discountTotal);
+        if (numberOfApplies > 0 || offerType == SpecialOfferType.TenPercentDiscount) {
+            switch (offerType) {
+                case TenPercentDiscount:
+                    discount = getTenPercentDiscount(product, quantity, unitPrice);
+                    break;
+                case ThreeForTwo:
+                    discount = getThreeForTwoDiscount(product, quantity, unitPrice, quantityAsInt, numberOfApplies);
+                    break;
+                case TwoForAmount:
+                    discount = getTwoForAmountDiscount(product, quantity, unitPrice, quantityAsInt, numberOfApplies);
+                    break;
+                case FiveForAmount:
+                    discount = getFiveForAmountDiscount(product, quantity, unitPrice,
+                                quantityAsInt, numberOfBoughtItemsRequired, numberOfApplies);
+                    break;
             }
         }
 
         return discount;
+    }
+
+    private Discount getFiveForAmountDiscount(Product product, double quantity, double unitPrice,
+                                              int quantityAsInt, int numberOfBoughtItemsRequired, int numberOfApplies) {
+        double discountTotal = unitPrice * quantity - (argument * numberOfApplies + quantityAsInt % 5 * unitPrice);
+        return new Discount(product, numberOfBoughtItemsRequired + " for " + argument, -discountTotal);
+    }
+
+    private Discount getTwoForAmountDiscount(Product product, double quantity, double unitPrice,
+                                                        int quantityAsInt, int numberOfApplies) {
+        double pricePerUnit = argument * numberOfApplies;
+        double theTotal = (quantityAsInt % 2) * unitPrice;
+        double total = pricePerUnit + theTotal;
+        double discountN = unitPrice * quantity - total;
+        return new Discount(product, "2 for " + argument, -discountN);
+    }
+
+    private Discount getThreeForTwoDiscount(Product product, double quantity,
+                                            double unitPrice, int quantityAsInt, int numberOfApplies) {
+        double discountAmount = quantity * unitPrice - ((numberOfApplies * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+        return new Discount(product, "3 for 2", -discountAmount);
+    }
+
+    private Discount getTenPercentDiscount(Product product, double quantity, double unitPrice) {
+        return new Discount(product, argument + "% off", -quantity * unitPrice * argument / 100.0);
     }
 }
