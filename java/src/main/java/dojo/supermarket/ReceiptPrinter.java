@@ -7,9 +7,10 @@ import java.util.Locale;
 public class ReceiptPrinter {
 
     private final int columns;
+    private static final int DEFAULT_COLUMNS_SIZE = 40;
 
     public ReceiptPrinter() {
-        this(40);
+        this(DEFAULT_COLUMNS_SIZE);
     }
 
     public ReceiptPrinter(int columns) {
